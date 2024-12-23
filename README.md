@@ -1,4 +1,4 @@
-After bouncing around different career paths for while, starting off wanting to be a big time New York lawyer to working for the government as an actuary for a summer, I have recently been on the wave of Cybersecurity,
+After bouncing around different ideas for a career path, starting off wanting to be a big time New York lawyer to working for the government as an actuary for a summer, I have recently been on the wave of Cybersecurity,
 and I believe this is the path that I will stick with.
 
 I have always been interested in computers, whether that is building them (as I built my first desktop at 12) or working within them (such as when I build my first minecraft mod shortly after I built that computer). 
