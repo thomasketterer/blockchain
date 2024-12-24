@@ -8,10 +8,12 @@ from flask import Flask, jsonify
 
 class Blockchain:
 
+        #creating first block
         def __init__(self):
-            self.chain = []
-            self.create_block(proof=1, previous_hash='0')
+            self.chain = [] #start the list of all blocks
+            self.create_block(proof=1, previous_hash='0') #figure out what proof means, and the 0 means that there is no block before it (starts at 1)
         
+        #creating 
         def create_block(self, proof, previous_hash):
             block = {'index': len(self.chain) + 1, 'timestamp': str(datetime.datetime.now()), 'proof': proof, 'previous_hash': preivous_hash}
             self.chain.append(block)
@@ -33,5 +35,30 @@ class Blockchain:
                 
                 return new_proof
             
-        def hash(self, block)
+        def hash(self, block):
             encoded_block = json.dumps(block, sort_keys=True).encode()
+            return haslib.sha256(encoded_block).hexdigest()
+        
+        def chain_valid(self, chain):
+            previous_block = chain[0]
+            block_index = 1
+
+            while block_index < len(chain):
+                block = chain[block_index]
+                if block['previous_hash'] != self.hash(previous_block):
+                    return False
+
+                previous_proof = previous_block['proof']
+                proof = block['proof']
+                hash_operation = hashlib.sha256(str(proof**2 - previous_proof**2).encode()).hexdigest()
+
+                if hash_operation[:5] != '00000':
+                    return False
+                previous_block = block
+                block_index += 1
+
+            return True
+
+        
+app = Flask(__name__)
+
