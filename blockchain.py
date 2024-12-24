@@ -15,7 +15,7 @@ class Blockchain:
         
         #creating 
         def create_block(self, proof, previous_hash):
-            block = {'index': len(self.chain) + 1, 'timestamp': str(datetime.datetime.now()), 'proof': proof, 'previous_hash': preivous_hash}
+            block = {'index': len(self.chain) + 1, 'timestamp': str(datetime.datetime.now()), 'proof': proof, 'previous_hash': previous_hash}
             self.chain.append(block)
             return(block)
         
@@ -28,16 +28,16 @@ class Blockchain:
             
             while check_proof is False:
                 hash_operation = hashlib.sha256(str(new_proof**2 - previous_proof**2).encode()).hexdigest()
-                        if hash_operation[:5] == '00000':
-                            check_proof = True
-                        else: 
-                            new_proof += 1
+                if hash_operation[:5] == '00000':
+                    check_proof = True
+                else: 
+                    new_proof += 1
                 
                 return new_proof
             
         def hash(self, block):
             encoded_block = json.dumps(block, sort_keys=True).encode()
-            return haslib.sha256(encoded_block).hexdigest()
+            return hashlib.sha256(encoded_block).hexdigest()
         
         def chain_valid(self, chain):
             previous_block = chain[0]
@@ -63,6 +63,13 @@ class Blockchain:
 app = Flask(__name__)
 
 blockchain = Blockchain()
+
+@app.route('/')
+def home():
+    return 'Welcome to The Train Blockchain'
+    return 'To view the chain type: /get_chain'
+    return 'To mine a block type: /mine_block'
+    return 'To see if the chain is valid type: /valid'
 
 @app.route('/mine_block', methods=['GET'])
 def mine_block():
@@ -90,6 +97,6 @@ def valid():
         response = {'message': 'The Blockchain is not valid'}
     return jsonify(response), 200
 
-app.run(host='0.0.0.0', port=5000)
+app.run(host='127.0.0.1', port=5000)
 
 
