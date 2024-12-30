@@ -14,17 +14,20 @@ class Blockchain:
             self.create_block(proof=1, previous_hash='0') #figure out what proof means, and the 0 means that there is no block before it (starts at 1)
         
         #creating 
-        def create_block(self, proof, previous_hash):
-            block = {'index': len(self.chain) + 1, 'timestamp': str(datetime.datetime.now()), 'proof': proof, 'previous_hash': previous_hash}
+        def create_block(self, proof, previous_hash): #creating a new block of code
+            block = {'index': len(self.chain) + 1, 'timestamp': str(datetime.datetime.now()), 'proof': proof, 'previous_hash': previous_hash} #setting the aspects of a block
             self.chain.append(block)
             return(block)
         
+
         def print_previous_block(self):
             return self.chain[-1]
+
 
         def proof_of_work(self, previous_proof):
             new_proof = 1
             check_proof = False
+            
             
             while check_proof is False:
                 hash_operation = hashlib.sha256(str(new_proof**2 - previous_proof**2).encode()).hexdigest()
@@ -66,9 +69,9 @@ blockchain = Blockchain()
 
 @app.route('/')
 def home():
-    return 'Welcome to The Train Blockchain'
-    return 'To view the chain type: /get_chain'
-    return 'To mine a block type: /mine_block'
+    print("Welcome to The Train Blockchain")
+    print("To view the chain type: /get_chain")
+    print("To mine a block type: /mine_block")
     return 'To see if the chain is valid type: /valid'
 
 @app.route('/mine_block', methods=['GET'])
